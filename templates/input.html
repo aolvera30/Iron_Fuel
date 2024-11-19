@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Fuel - User Input</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ca0000;
+            font-family: 'Roboto Condensed', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: #ca0000;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="number"], select {
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #ca0000;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        input[type="submit"] {
+            background-color: #ca0000;
+            color: #ffffff;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ca0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Your Information</h1>
+    <form action="/process_input" method="POST">
+        <label for="weight">Weight (lbs):</label>
+        <input type="number" id="weight" name="weight" required>
+
+        <label for="height_feet">Height (feet):</label>
+        <input type="number" id="height_feet" name="height_feet" required>
+
+        <label for="height_inches">Height (inches):</label>
+        <input type="number" id="height_inches" name="height_inches" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label for="goal">Primary Fitness Goal:</label>
+        <select id="goal" name="goal">
+            <option value="build_muscle">Build Muscle</option>
+            <option value="lose_fat">Lose Fat</option>
+            <option value="maintain_weight">Maintain Weight</option>
+        </select>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
