@@ -21,7 +21,7 @@ def calculate_macros(weight_lbs, height_feet, height_inches, age, gender, activi
     
     # Step 3: Adjust calories based on goal
     if goal == 'lose_fat':
-        daily_calories = tdee - 500
+        daily_calories = max(tdee - 500, 1200)  # Ensure at least 1200 calories
     elif goal == 'build_muscle':
         daily_calories = tdee + 250
     else:
@@ -37,15 +37,15 @@ def calculate_macros(weight_lbs, height_feet, height_inches, age, gender, activi
     fat_grams = fat_calories / 9  # 1g fat = 9 kcal
     
     # Carbs: Remaining calories
-    remaining_calories = daily_calories - (protein_calories + fat_calories)
+    remaining_calories = max(daily_calories - (protein_calories + fat_calories), 0)  # Ensure non-negative remaining calories
     carbs_grams = remaining_calories / 4  # 1g carbohydrate = 4 kcal
     
-    # Return the calculated macros
+    # Round values 
     return {
-        'calories': daily_calories,
-        'protein_grams': protein_grams,
-        'fat_grams': fat_grams,
-        'carbs_grams': carbs_grams
+        'calories': round(daily_calories),
+        'protein_grams': round(protein_grams),
+        'fat_grams': round(fat_grams),
+        'carbs_grams': round(carbs_grams)
     }
 
 # Example usage

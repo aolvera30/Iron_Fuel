@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; 
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding-top: 5vh; 
+        }
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: #ca0000;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Macro Calculations</h1>
+    <p>Calories: {{ macros['calories'] }}</p>
+    <p>Protein: {{ macros['protein_grams'] }} grams</p>
+    <p>Carbs: {{ macros['carbs_grams'] }} grams</p>
+    <p>Fats: {{ macros['fat_grams'] }} grams</p>
+</body>
+</html>
+
