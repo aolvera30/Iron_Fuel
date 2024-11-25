@@ -17,7 +17,7 @@
             align-items: center;
             height: 100vh;
             text-align: center;
-            padding-top: 5vh; 
+            padding-top: 5vh;
         }
         h1 {
             font-family: 'Bebas Neue', sans-serif;
@@ -30,6 +30,20 @@
             line-height: 1.5;
             margin: 0.5rem 0;
         }
+        a.button {
+            padding: 0.75rem 1.5rem;
+            background-color: #a30000;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 2rem;
+            transition: background-color 0.3s;
+        }
+        a.button:hover {
+            background-color: #7a0000;
+        }
     </style>
 </head>
 <body>
@@ -38,6 +52,9 @@
     <p>Protein: {{ macros['protein_grams'] }} grams</p>
     <p>Carbs: {{ macros['carbs_grams'] }} grams</p>
     <p>Fats: {{ macros['fat_grams'] }} grams</p>
+
+    <a href="/food_chart" class="button">Continue to Food Chart</a>
 </body>
 </html>
+
 

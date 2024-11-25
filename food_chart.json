@@ -1,0 +1,21 @@
+{
+    "Proteins": [
+        "Whole Eggs", "Egg Whites", "Extra Lean Ground Turkey (99% Fat Free)",
+        "Extra Lean Ground Beef (96% Fat Free)", "Top Sirloin", "Turkey Breast",
+        "Salmon / Tuna", "Scallops / Shrimp", "Tilapia / Halibut / Cod", "Chicken Breast",
+        "Orange Roughy", "Protein shake"
+    ],
+    "Complex Carbs": [
+        "Brown / White Rice", "Quinoa", "Gluten Free Oats", "Red/White Potatoes",
+        "Sweet Potatoes / Yams", "Oatmeal", "Caramel Rice Cakes", "Wheat Pasta / Tortillas",
+        "Cream of Rice / Grits", "Cream of Wheat", "Whole Wheat Muffin", "Ezekiel Bread"
+    ],
+    "Fats": [
+        "Peanut Butter", "Almond Butter", "Flax Seed Oil", "Olive Oil", "Macadamia Nut Oil",
+        "Coconut Oil", "Fish Oil", "Pistachios", "Avocados", "Raw Almonds", "Walnuts"
+    ],
+    "Vegetables": [
+        "Asparagus", "Spinach", "Broccoli", "Kale", "Green Peas", "Sweet Peas", "Cauliflower",
+        "Green Beans", "Collard Greens", "Cucumbers", "Zucchini", "Brussel Sprouts"
+    ]
+}
