@@ -1,49 +1,71 @@
 from flask import Flask, render_template, request
-from macro_logic import calculate_macros
+import json
+from macro_logic import calculate_macros  
+import logging
 
 app = Flask(__name__)
 
+logging.basicConfig(level=logging.DEBUG)
+
 @app.route('/')
 def home():
-    return render_template('welcome.html')
+    return render_template('welcome.html')  
 
 @app.route('/input', methods=['GET', 'POST'])
 def process_input():
     if request.method == 'POST':
-        goal = request.form['goal']
-        weight = float(request.form['weight'])
-        height_feet = int(request.form['height_feet'])
-        height_inches = int(request.form['height_inches'])
-        age = int(request.form['age'])
-        gender = request.form['gender']
-        activity_level = request.form['activity_level']
+        try:
+            # Collect user input
+            goal = request.form.get('goal')
+            weight = request.form.get('weight', type=float)
+            height_feet = request.form.get('height_feet', type=int)
+            height_inches = request.form.get('height_inches', type=int)
+            age = request.form.get('age', type=int)
+            gender = request.form.get('gender')
+            activity_level = request.form.get('activity_level')
 
-        # Calculate macros based on user input
-        macros = calculate_macros(weight_lbs=weight, height_feet=height_feet, height_inches=height_inches, age=age, gender=gender, activity_level=activity_level, goal=goal)
+            if not all([goal, weight, height_feet, height_inches, age, gender, activity_level]):
+                return "Missing form fields. Please provide all required inputs.", 400
 
-        # Add some rounding to the output values
-        macros['calories'] = round(macros.get('calories', 0))
-        macros['protein_grams'] = round(macros.get('protein_grams', 0))
-        macros['carbs_grams'] = round(macros.get('carbs_grams', 0))
-        macros['fat_grams'] = round(macros.get('fat_grams', 0))
+            # Calculate macros
+            macros = calculate_macros(
+                weight_lbs=weight,
+                height_feet=height_feet,
+                height_inches=height_inches,
+                age=age,
+                gender=gender,
+                activity_level=activity_level,
+                goal=goal
+            )
 
-        # Render the results page with the calculated macros
-        return render_template('display_macros.html', macros=macros)
+            # Round macros for display
+            macros['calories'] = round(macros.get('calories', 0))
+            macros['protein_grams'] = round(macros.get('protein_grams', 0))
+            macros['carbs_grams'] = round(macros.get('carbs_grams', 0))
+            macros['fat_grams'] = round(macros.get('fat_grams', 0))
 
-    return render_template('input.html')
+            # Load food chart from JSON
+            try:
+                with open('food_chart.json') as file:
+                    food_chart = json.load(file)
+            except FileNotFoundError:
+                return "Error: 'food_chart.json' not found.", 500
 
-@app.route('/food_chart', methods=['GET', 'POST'])
-def food_chart():
-    if request.method == 'POST':
-        selected_proteins = request.form.getlist('protein')
-        selected_carbs = request.form.getlist('carb')
-        selected_fats = request.form.getlist('fat')
-        selected_vegetables = request.form.getlist('vegetable')
+            # Render the overview with macros and food chart
+            return render_template(
+                'macro_overview.html',
+                macros=macros,
+                food_chart=food_chart
+            )
 
-        # Render the meal plan page with selected preferences
-        return render_template('meal_plan.html', proteins=selected_proteins, carbs=selected_carbs, fats=selected_fats, vegetables=selected_vegetables)
+        except Exception as e:
+            # Log any exceptions that occur
+            logging.error(f"Error during processing: {str(e)}")
+            return f"An error occurred: {e}", 500
 
-    return render_template('food_chart.html')
+    # If GET request, show the input form
+    return render_template('user_input.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
