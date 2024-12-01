@@ -51,12 +51,6 @@
             box-sizing: border-box; 
         }
 
-        
-        #height_feet, #height_inches {
-            width: 100%; 
-            margin-bottom: 20px;
-        }
-
         button {
             width: 100%;
             padding: 10px; 
@@ -77,7 +71,7 @@
 
     <div>
         <h1>Enter Details</h1>
-        <form action="/input" method="post">
+        <form id="inputForm" method="POST">
             <label for="goal">Goal:</label>
             <select id="goal" name="goal" required>
                 <option value="lose_fat">Lose Fat</option>
@@ -114,6 +108,10 @@
         </form>
     </div>
 
+    <!-- Link JavaScript file using Flask's url_for function -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+
 </body>
 </html>
+
 
