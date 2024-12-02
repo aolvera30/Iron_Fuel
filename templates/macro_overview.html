@@ -1,113 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Macros Overview</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Bebas Neue', sans-serif; 
+            font-family: Arial, sans-serif;
             background-color: black;
             color: white;
             text-align: center;
         }
-
         h1, h2 {
-            font-size: 1.5rem;
-            color: #ca0000;
-            margin-top: 20px;
-            text-transform: uppercase;
+            color: #ff0000;
         }
-
-        /* Macros section */
         .macros {
-            font-size: 1.5rem;
-            margin: 10px auto; 
-            max-width: 800px;
-        }
-
-        .macros p {
-            margin: 2px 0;
-            font-size: 1.2rem;
-            font-weight: normal; 
-        }
-
-        /* Tips section */
-        .tips {
-            font-size: 1.2rem;
-            margin: 10px auto;
-            max-width: 800px;
-            text-align: center;
-            padding-left: 20px;
-        }
-
-        .tips ul {
-            list-style-type: disc;
-            padding-left: 40px;
-            margin: 0 auto;
-            display: inline-block;
-            text-align: left;
-        }
-
-        /* Food Chart section */
-        .food-chart {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             margin: 20px auto;
-            max-width: 1200px;
         }
-
-        .category {
-            color: #ca0000;
-            font-size: 1rem;
-            margin-bottom: 10px;
+        .tips {
+            margin: 20px auto;
             text-align: left;
-            width: 200px;
-            margin-right: 30px; 
-            font-family: 'Roboto Condensed', sans-serif; 
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        .category ul {
+        .food-chart {
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+        .food-category {
+            text-align: left;
+        }
+        .food-category h3 {
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+        .food-category ul {
             list-style: none;
             padding: 0;
             margin: 0;
-            text-align: left;
         }
-
-        .category li {
-            font-size: 1rem;
-            color: white; 
-            margin-bottom: 10px;
-        }
-
-        /* Mobile responsive design */
-        @media (max-width: 1200px) {
-            .food-chart {
-                flex-direction: column;
-                align-items: center;
-            }
+        .food-category ul li {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-
-    <h1>Macros Overview</h1>
-
-    <!-- Macros Section -->
+    <h1>Macros</h1>
     <div class="macros">
-        <p><strong>Calories:</strong> <span id="calories">Loading...</span> kcal</p>
-        <p><strong>Protein:</strong> <span id="protein">Loading...</span> g</p>
-        <p><strong>Carbs:</strong> <span id="carbs">Loading...</span> g</p>
-        <p><strong>Fats:</strong> <span id="fats">Loading...</span> g</p>
+        <p><strong>Calories:</strong> <span>{{ macros.calories }}</span> kcal</p>
+        <p><strong>Protein:</strong> <span>{{ macros.protein }}</span> g</p>
+        <p><strong>Carbs:</strong> <span>{{ macros.carbs }}</span> g</p>
+        <p><strong>Fats:</strong> <span>{{ macros.fats }}</span> g</p>
     </div>
-
-    <!-- Tips Section -->
+    <h2>Tips</h2>
     <div class="tips">
-        <h2>Tips</h2>
         <ul>
             <li>On rest days, choose lower glycemic carbs for energy and recovery.</li>
             <li>Drink at least 2-3 liters of water daily to stay hydrated.</li>
@@ -115,14 +66,86 @@
             <li>Eat pre-workout meals 1-2 hours before training and post-workout meals within 30-60 minutes.</li>
         </ul>
     </div>
-
-    <!-- Recommended Foods Section -->
+    <h2>Recommended Foods</h2>
     <div class="food-chart">
-        <!-- JavaScript or Server Side can dynamically update this section -->
+        <div class="food-category">
+            <h3>Proteins</h3>
+            <ul>
+                <li>Whole Eggs</li>
+                <li>Egg Whites</li>
+                <li>Extra Lean Ground Turkey</li>
+                <li>Extra Lean Ground Beef</li>
+                <li>Top Sirloin</li>
+                <li>Turkey Breast</li>
+                <li>Salmon / Tuna</li>
+                <li>Tilapia / Halibut / Cod</li>
+                <li>Scallops / Shrimp</li>
+                <li>Chicken Breast</li>
+                <li>Protein Shake</li>
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Complex Carbs</h3>
+            <ul>
+                <li>Brown / White Rice</li>
+                <li>Quinoa</li>
+                <li>Gluten Free Oats</li>
+                <li>Red / White Potatoes</li>
+                <li>Sweet Potatoes / Yams</li>
+                <li>Oatmeal</li>
+                <li>Caramel Rice Cakes</li>
+                <li>Whole Wheat Pasta / Tortillas</li>
+                <li>Cream of Rice / Grits</li>
+                <li>Cream of Wheat</li>
+                <li>Ezekiel Bread</li>
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Fats</h3>
+            <ul>
+                <li>Peanut Butter</li>
+                <li>Almond Butter</li>
+                <li>Flax Seed Oil</li>
+                <li>Olive Oil</li>
+                <li>Macadamia Nut Oil</li>
+                <li>Coconut Oil</li>
+                <li>Fish Oil</li>
+                <li>Pistachios</li>
+                <li>Avocados</li>
+                <li>Raw Almonds</li>
+                <li>Walnuts</li>
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Vegetables</h3>
+            <ul>
+                <li>Asparagus</li>
+                <li>Spinach</li>
+                <li>Broccoli</li>
+                <li>Kale</li>
+                <li>Green Peas</li>
+                <li>Sweet Peas</li>
+                <li>Cauliflower</li>
+                <li>Green Beans</li>
+                <li>Collard Greens</li>
+                <li>Cucumbers</li>
+                <li>Brussel Sprouts</li>
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Fruits</h3>
+            <ul>
+                <li>Blueberries</li>
+                <li>Strawberries</li>
+                <li>Raspberries</li>
+                <li>Banana</li>
+                <li>Apple</li>
+                <li>Orange</li>
+                <li>Watermelon</li>
+                <li>Pineapple</li>
+                <li>Grapes</li>
+            </ul>
+        </div>
     </div>
-
-    <!-- Link to JavaScript File -->
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-
 </body>
 </html>

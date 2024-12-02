@@ -1,52 +1,50 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('inputForm');
-    if (form) {
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent default form submission
+// Wait for the DOM to fully load
+document.addEventListener("DOMContentLoaded", () => {
+    // Get the form element by its ID
+    const form = document.getElementById("inputForm");
 
-            // Collect form data
-            const formData = {
-                goal: document.getElementById('goal').value,
-                weight: parseFloat(document.getElementById('weight').value),
-                height_feet: parseInt(document.getElementById('height_feet').value),
-                height_inches: parseInt(document.getElementById('height_inches').value),
-                age: parseInt(document.getElementById('age').value),
-                gender: document.getElementById('gender').value,
-                activity_level: document.getElementById('activity_level').value
-            };
+    // Add an event listener to handle form submission
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent the default form submission
 
-            // Send data to backend API
-            fetch('/api/calculate_macros', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);
-                } else {
-                    // Update the Macros Overview page with the response data
-                    document.getElementById('calories').textContent = data.calories;
-                    document.getElementById('protein').textContent = data.protein_grams;
-                    document.getElementById('carbs').textContent = data.carbs_grams;
-                    document.getElementById('fats').textContent = data.fat_grams;
-
-                    // Redirect to the macro overview page after successfully getting the data
-                    window.location.href = "/overview";
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while processing your request. Please try again.');
-            });
+        // Collect form data
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
         });
-    }
+
+        try {
+            // Send a POST request to the /api/calculate_macros endpoint
+            const response = await fetch("/api/calculate_macros", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            console.log("Response:", response);
+
+            if (response.ok) {
+                // Get the HTML response and replace the current document
+                const html = await response.text();
+
+                console.log("HTML:", html);
+
+                document.open(); // Open a new document context
+                document.write(html); // Replace the current page with the new content
+                document.close(); // Close the document context
+            } else {
+                // Handle errors (e.g., missing fields or server issues)
+                const errorData = await response.json();
+                alert(errorData.error || "An error occurred while calculating macros.");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("An unexpected error occurred. Please try again.");
+        }
+    });
 });
 
 
