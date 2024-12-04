@@ -16,15 +16,15 @@ Iron_Fuel is a Flask-based web application designed to help users calculate thei
 
 ```
 Iron_Fuel/
-├── app.py                # Flask application code
-├── macro_logic.py        # Macro calculation logic module
-├── static/               # Static files (e.g., JS, CSS)
-│   ├── app.js           # JavaScript for handling user input and API calls
-├── templates/            # HTML templates
-│   ├── welcome.html     # Home page for Iron_Fuel
-│   ├── user_input.html  # Page where users enter their information
+├── app.py                  # Flask application code
+├── macro_logic.py          # Macro calculation logic module
+├── static/                 # Static files (e.g., JS, CSS)
+│   ├── app.js              # JavaScript for handling user input and API calls
+├── templates/              # HTML templates
+│   ├── welcome.html        # Home page for Iron_Fuel
+│   ├── user_input.html     # Page where users enter their information
 │   ├── macro_overview.html # Page displaying calculated macros
-├── requirements.txt      # Project dependencies
+├── requirements.txt        # Project dependencies
 ```
 
 ## Setup and Installation
@@ -32,7 +32,7 @@ Iron_Fuel/
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/aolvera30/Iron_Fuel.git
    ```
 
 2. **Navigate into the project directory**
@@ -73,7 +73,7 @@ Iron_Fuel/
 
       "goal": "lose_fat",
 
-      "weight": 120,
+      "weight": 160,
 
       "height_feet": 5,
 
@@ -155,10 +155,10 @@ Iron_Fuel/
           ]
       },
       "macros": {
-          "calories": 1427,
-          "carbs": 159,
-          "fats": 40,
-          "protein": 109
+          "calories": 1709,
+          "carbs": 175,
+          "fats": 47,
+          "protein": 145
       },
       "tips": [
           "- On rest days, choose lower glycemic carbs for energy and recovery.",
@@ -184,6 +184,10 @@ The `calculate_macros` function calculates the user's daily macronutrient needs 
 ### JavaScript Form Submission (`static/app.js`)
 
 Handles form submissions by sending user data as a JSON payload to the `/api/calculate_macros` endpoint and dynamically updates the page with the calculated macronutrient information.
+
+## Disclaimer
+
+The calculated macronutrient values are estimates based on user input. Consult a nutritionist for personalized recommendations.
 
 ##
 
