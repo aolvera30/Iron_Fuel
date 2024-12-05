@@ -1,6 +1,8 @@
 # Iron_Fuel
 
-**Iron_Fuel** is a Python Flask-based web application designed to help users calculate their macros and access recommended food lists. The application features clean HTML rendering with a separate structure for CSS styling and templates.
+**Iron_Fuel** is a Flask-based web application built with Python, designed to help users calculate macronutrients and receive food recommendations. It emphasizes a clean, modular design with separate structures for CSS styling and HTML templates, ensuring maintainability and scalability.
+
+
 
 ## Features
 
