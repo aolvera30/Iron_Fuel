@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macros Overview</title>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/overview.css') }}">
+</head>
+<body>
+    <h1>Macros</h1>
+    <div class="macros">
+        <p><strong>Calories:</strong> <span>{{ macros.calories }}</span> kcal</p>
+        <p><strong>Protein:</strong> <span>{{ macros.protein }}</span> g</p>
+        <p><strong>Carbs:</strong> <span>{{ macros.carbs }}</span> g</p>
+        <p><strong>Fats:</strong> <span>{{ macros.fats }}</span> g</p>
+    </div>
+    <h2>Tips</h2>
+    <div class="tips">
+        <ul>
+            <li>On rest days, choose lower glycemic carbs for energy and recovery.</li>
+            <li>Drink at least 2-3 liters of water daily to stay hydrated.</li>
+            <li>Consume high glycemic carbs post-workout to replenish energy.</li>
+            <li>Eat pre-workout meals 1-2 hours before training and post-workout meals within 30-60 minutes.</li>
+        </ul>
+    </div>
+    <h2>Recommended Foods</h2>
+    <div class="food-chart">
+        <div class="food-category">
+            <h3>Proteins</h3>
+            <ul>
+                {% for protein in food_chart.Proteins %}
+                <li>{{ protein }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Complex Carbs</h3>
+            <ul>
+                {% for carb in food_chart['Complex Carbs'] %}
+                <li>{{ carb }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Fats</h3>
+            <ul>
+                {% for fat in food_chart.Fats %}
+                <li>{{ fat }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Vegetables</h3>
+            <ul>
+                {% for vegetable in food_chart.Vegetables %}
+                <li>{{ vegetable }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="food-category">
+            <h3>Fruits</h3>
+            <ul>
+                {% for fruit in food_chart.Fruits %}
+                <li>{{ fruit }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

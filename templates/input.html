@@ -5,70 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Input</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Bebas Neue', sans-serif;
-            background-color: black; 
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; 
-            height: 100vh;
-            text-align: center;
-            padding-top: 50px; 
-        }
-
-        h1 {
-            font-size: 3.5rem; 
-            color: #ca0000; 
-            margin-bottom: 30px;
-        }
-
-        form {
-            width: 100%;
-            max-width: 500px; 
-            padding: 25px;
-            background-color: black; 
-        }
-
-        label {
-            display: block;
-            font-size: 1.4rem; 
-            margin-bottom: 5px;
-        }
-
-        input, select {
-            width: 100%; 
-            padding: 10px; 
-            font-size: 1.1rem; 
-            background-color: black; 
-            color: white;
-            border: 1px solid #ca0000; 
-            border-radius: 5px;
-            margin-bottom: 20px;
-            box-sizing: border-box; 
-        }
-
-        button {
-            width: 100%;
-            padding: 10px; 
-            background-color: #a30000; 
-            color: white;
-            font-size: 1.4rem; 
-            cursor: pointer;
-            border-radius: 5px;
-            border: none;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-    </style>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
 </head>
 <body>
-
     <div>
         <h1>Enter Details</h1>
         <form id="inputForm" method="POST">
@@ -107,11 +47,8 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-
-    <!-- Link JavaScript file using Flask's url_for function -->
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-
 </body>
 </html>
+
 
 
