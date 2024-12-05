@@ -1,68 +1,93 @@
-from flask import Flask, request, jsonify, render_template, url_for, redirect
+from flask import Flask, render_template, request, session
 from macro_logic import calculate_macros
 import logging
+import json
+import os
+from datetime import timedelta
 
 app = Flask(__name__, static_folder='static')
+app.secret_key = os.urandom(24)  # Secure secret key
+app.permanent_session_lifetime = timedelta(minutes=30)
 
 # Configure logging to see debug information in the console
 logging.basicConfig(level=logging.INFO)
 
+# Load the Food Chart from a JSON file
+with open('data/food_chart.json', 'r') as f:
+    app.config['FOOD_CHART'] = json.load(f)
+
+
 @app.route('/')
 def home():
-    return render_template('welcome.html')
+    """Welcome page route."""
+    return render_template('index.html')
+
 
 @app.route('/input', methods=['GET', 'POST'])
 def user_input():
+    """User input page route."""
     if request.method == 'GET':
-        return render_template('user_input.html')
+        # Render the input form
+        return render_template('input.html')
 
-@app.route('/overview')
+    elif request.method == 'POST':
+        try:
+            # Collect form data
+            form_data = request.form
+            goal = form_data.get('goal')
+            weight = form_data.get('weight')
+            height_feet = form_data.get('height_feet')
+            height_inches = form_data.get('height_inches')
+            age = form_data.get('age')
+            gender = form_data.get('gender')
+            activity_level = form_data.get('activity_level')
+
+            # Validate inputs
+            if not all([goal, weight, height_feet, height_inches, age, gender, activity_level]):
+                return render_template('input.html', error="Please fill out all fields.")
+
+            # Calculate macros
+            macros = calculate_macros(
+                weight_lbs=float(weight),
+                height_feet=int(height_feet),
+                height_inches=int(height_inches),
+                age=int(age),
+                gender=gender,
+                activity_level=activity_level,
+                goal=goal
+            )
+
+            # Store macros in session
+            session['macros'] = macros
+
+            # Redirect to the overview page
+            return render_template('overview.html', macros=macros, food_chart=app.config['FOOD_CHART'])
+
+        except Exception as e:
+            logging.error(f"Error in /input POST: {e}")
+            return render_template('input.html', error="An unexpected error occurred.")
+
+
+@app.route('/overview', methods=['GET'])
 def macro_overview():
-    return render_template('macro_overview.html')
+    """Overview page route."""
+    # Retrieve macros from session
+    macros = session.get('macros')
 
-# API endpoint to calculate macros
-@app.route('/api/calculate_macros', methods=['POST'])
-def calculate_macros_api():
-    try:
-        # Collect user input from JSON request
-        data = request.get_json()
-        app.logger.info(f"Received data: {data}")
+    # If no macros found, redirect to input page with an error
+    if not macros:
+        return render_template('input.html', error="Please submit your details first.")
 
-        goal = data.get('goal')
-        weight = data.get('weight')
-        height_feet = data.get('height_feet')
-        height_inches = data.get('height_inches')
-        age = data.get('age')
-        gender = data.get('gender')
-        activity_level = data.get('activity_level')
+    # Retrieve food chart
+    food_chart = app.config['FOOD_CHART']
 
-        # Ensure all required fields are provided
-        if not all([goal, weight, height_feet, height_inches, age, gender, activity_level]):
-            return jsonify({"error": "Missing form fields. Please provide all required inputs."}), 400
+    # Render the overview page
+    return render_template('overview.html', macros=macros, food_chart=food_chart)
 
-        # Calculate macros using your macro logic function
-        macros = calculate_macros(
-            weight_lbs=weight,
-            height_feet=height_feet,
-            height_inches=height_inches,
-            age=age,
-            gender=gender,
-            activity_level=activity_level,
-            goal=goal
-        )
-
-        # Log calculated macros
-        app.logger.info(f"Calculated Macros: {macros}")
-
-        # Return the calculated macros as a JSON response and render the HTML
-        return render_template('macro_overview.html', macros=macros)
-
-    except Exception as e:
-        app.logger.error(f"Error during macro calculation: {str(e)}")
-        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 
